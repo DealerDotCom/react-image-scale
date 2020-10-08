@@ -16,8 +16,7 @@ export default class ReactImageScaler extends React.Component {
       canvasWidth: this.props.width ? this.props.width : window.innerWidth,
       canvasHeight: this.props.height ? this.props.height : window.innerHeight,
       imageSource: this.props.src ? this.props.src : '',
-      backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : '#FFFFFF',
-      scale: 1
+      backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : '#FFFFFF'
     }
   }
 
@@ -43,7 +42,7 @@ export default class ReactImageScaler extends React.Component {
           <input type='number' ref={this.scaleValueRef} onChange={this.scaleImage}/>
         </div>
         <div class='control-segment'>
-          <input type='range' ref={this.rangeScaleRef} min='1' max='30' onChange={this.scaleImage}/>
+          <input type='range' ref={this.rangeScaleRef} min='1' max={this.props.maxScale ? this.props.maxScale : 3} onChange={this.scaleImage}/>
         </div>
         <div class='control-segment'>
           <button>
