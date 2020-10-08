@@ -8,6 +8,7 @@ export default class ReactImageScaler extends React.Component {
     this.scaleImage = this.scaleImage.bind(this);
     this.redrawCanvas = this.redrawCanvas.bind(this);
     this.eraseCanvas = this.eraseCanvas.bind(this);
+    this.returnData = this.returnData.bind(this);
     this.canvasRef = createRef();
     this.scaleValueRef = createRef();
     this.rangeScaleRef = createRef();
@@ -15,7 +16,7 @@ export default class ReactImageScaler extends React.Component {
     this.state = {
       canvasWidth: this.props.width ? this.props.width : window.innerWidth,
       canvasHeight: this.props.height ? this.props.height : window.innerHeight,
-      imageSource: this.props.src ? this.props.src : '',
+      imageSource: this.props.src ? this.props.src : null,
       backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : '#FFFFFF'
     }
   }
@@ -34,6 +35,14 @@ export default class ReactImageScaler extends React.Component {
     }
   }
 
+  renderNoSource() {
+    return(
+      <div className='scaler-no-source'>
+        <span>Image source not provided.</span>
+      </div>
+    );
+  }
+
   renderControls() {
     return(
       <div className='react-scaler-controls'>
@@ -45,8 +54,8 @@ export default class ReactImageScaler extends React.Component {
           <input type='range' ref={this.rangeScaleRef} min='1' max={this.props.maxScale ? this.props.maxScale : 3} onChange={this.scaleImage}/>
         </div>
         <div class='control-segment'>
-          <button>
-            Apply
+          <button onClick={this.returnData}>
+            {this.props.buttonMessage ? this.props.buttonMessage : 'Apply'}
           </button>
         </div>
       </div>
@@ -65,7 +74,7 @@ export default class ReactImageScaler extends React.Component {
   }
 
   render() {
-    return this.renderCanvas();
+    return this.props.imageSource ? this.renderCanvas() : this.renderNoSource();
   }
 
   scaleImage(event) {
@@ -103,5 +112,17 @@ export default class ReactImageScaler extends React.Component {
     ctx.fillStyle = '#FFFFFF';
     ctx.textAlign = 'center';
     ctx.fillText(Math.floor(width) + ' X ' + Math.floor(height), 40, 16);
+  }
+
+  returnData() {
+    if(this.props.onScaleApply) {
+      this.processImageData();
+    }
+    return null;
+  }
+
+  processImageData() {
+    const scale = this.scaleValueRef.current.value;
+    console.log(scale);
   }
 }
