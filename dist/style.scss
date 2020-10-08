@@ -34,6 +34,7 @@ body {
                 font-size: $medium-large;
                 color: $white;
                 font-weight: bold;
+                outline: none;
             }
 
             input[type="range"] {
@@ -46,6 +47,7 @@ body {
                 width: 100%;
                 top: 24px;
                 position: absolute;
+                outline: none;
             }
 
             ::-webkit-slider-thumb {
