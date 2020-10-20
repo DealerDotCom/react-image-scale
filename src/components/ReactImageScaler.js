@@ -25,7 +25,7 @@ export default class ReactImageScaler extends React.Component {
     this.rangeScaleRef.current.value = 10;
     this.canvas = this.canvasRef.current;
     this.context = this.canvas.getContext('2d');
-    
+  
     this.image = new Image();
     this.image.src = this.state.imageSource;
 
@@ -46,14 +46,14 @@ export default class ReactImageScaler extends React.Component {
   renderControls() {
     return(
       <div className='react-scaler-controls'>
-        <div class='control-segment'>
+        <div className='control-segment'>
           <span>SCALE   </span>
           <input type='number' ref={this.scaleValueRef} onChange={this.scaleImage}/>
         </div>
-        <div class='control-segment'>
-          <input type='range' ref={this.rangeScaleRef} min='1' max={this.props.maxScale ? this.props.maxScale : 3} onChange={this.scaleImage}/>
+        <div className='control-segment'>
+          <input type='range' ref={this.rangeScaleRef} step={this.props.scaleStep ? this.props.scaleStep : '0.5'} min='1' max={this.props.maxScale ? this.props.maxScale * 10 : 30} onChange={this.scaleImage}/>
         </div>
-        <div class='control-segment'>
+        <div className='control-segment'>
           <button onClick={this.returnData}>
             {this.props.buttonMessage ? this.props.buttonMessage : 'Apply'}
           </button>
@@ -74,7 +74,7 @@ export default class ReactImageScaler extends React.Component {
   }
 
   render() {
-    return this.props.imageSource ? this.renderCanvas() : this.renderNoSource();
+    return this.state.imageSource ? this.renderCanvas() : this.renderNoSource();
   }
 
   scaleImage(event) {
