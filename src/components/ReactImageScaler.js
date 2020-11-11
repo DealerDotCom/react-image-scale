@@ -9,6 +9,7 @@ export default class ReactImageScaler extends React.Component {
     this.redrawCanvas = this.redrawCanvas.bind(this);
     this.eraseCanvas = this.eraseCanvas.bind(this);
     this.returnData = this.returnData.bind(this);
+    this.cancelCrop = this.cancelCrop.bind(this);
     this.canvasRef = createRef();
     this.scaleValueRef = createRef();
     this.rangeScaleRef = createRef();
@@ -71,8 +72,11 @@ export default class ReactImageScaler extends React.Component {
         </div>
         <div className='control-segment'>
           {this.renderScaleSizes()}
+          <button onClick={this.cancelCrop}>
+            {this.props.cancelLabel ? this.props.cancelLabel : 'Cancel'}
+          </button>
           <button onClick={this.returnData}>
-            {this.props.buttonMessage ? this.props.buttonMessage : 'Apply'}
+            {this.props.applyLabel ? this.props.applyLabel : 'Apply'}
           </button>
         </div>
       </div>
@@ -184,8 +188,15 @@ export default class ReactImageScaler extends React.Component {
   }
 
   returnData() {
-    if(this.props.onScaleApply) {
+    if(this.props.onScaleApply && typeof this.props.onScaleApply == 'function') {
       this.props.onScaleApply(this.processImageData());
+    }
+    return null;
+  }
+
+  cancelCrop() {
+    if(this.props.onCancel && typeof this.props.onCancel == 'function') {
+      this.props.onCancel();
     }
     return null;
   }
@@ -213,17 +224,8 @@ export default class ReactImageScaler extends React.Component {
     const scale = this.scaleValueRef.current.value;
     const ctx = this.canvas.getContext('2d');
     const sourceCtx = this.sourceCanvas.getContext('2d');
-
     const sourceData = sourceCtx.getImageData(0, 0, this.state.canvasWidth, this.state.canvasHeight);
-    for(let i = 0;i < sourceData.data.length;i += 4) {
-      const red = sourceData.data[i];
-      const green = sourceData.data[i + 1];
-      const blue = sourceData.data[i + 2];
-      const average = (red + green + blue);
-      sourceData.data[i],sourceData.data[i + 1],sourceData.data[i + 2] = average;
-    }
 
-    
     sourceCtx.putImageData(sourceData, 0, 0);
     const cropped = this.determineCrop(sourceCtx, scale);
     sourceCtx.putImageData(cropped, 0, 0);
