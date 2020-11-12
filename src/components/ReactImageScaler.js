@@ -163,7 +163,7 @@ export default class ReactImageScaler extends React.Component {
     const imageHeight = this.image.height * scale;
 
     ctx.drawImage(this.image, (this.state.canvasWidth - imageWidth) / 2, (this.state.canvasHeight - imageHeight) / 2, imageWidth, imageHeight);
-    this.renderResolution(ctx, imageWidth, imageHeight);
+    this.props.displayResolution && this.renderResolution(ctx, imageWidth, imageHeight);
     this.props.drawGrid && this.renderGrid();
   }
 
