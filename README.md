@@ -17,8 +17,7 @@ Simple HTML5 canvas based component used for scaling images.  Returns base64 enc
 
 ## Examples
 
-#### Basic
-`<ReactImageScaler src={this.state.src}/>`
+![Example Gif](./assets/example-gif.gif)
 
 #### Grid
 `<ReactImageScaler src={this.state.src} drawGrid={true}  width={1024} height={768}//>`
