@@ -12,8 +12,13 @@ Simple HTML5 canvas based component used for scaling images.  Returns base64 enc
 * __displayResolution__ - bool - Show the scaled resolution in pixels at top right. (Defaults to true)
 * __applyMessage__ - string - Label of the apply button in bottom right. (Defaults to Apply)
 * __cancelMessage__ - string - Label of the cancel button in bottom right. (Defaults to Apply)
+* __drawGrid__ - bool - Whether or not to show gridlines over the image.
 
 ## Examples
 
 #### Basic
-`<ReactImageScaler/>`
+`<ReactImageScaler src={this.state.src}/>`
+
+
+#### Grid
+`<ReactImageScaler src={this.state.src} showGrid={true}/>`
