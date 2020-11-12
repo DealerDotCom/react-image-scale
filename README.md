@@ -21,7 +21,8 @@ Simple HTML5 canvas based component used for scaling images.  Returns base64 enc
 `<ReactImageScaler src={this.state.src}/>`
 
 #### Grid
-`<ReactImageScaler src={this.state.src} showGrid={true}/>`
+`<ReactImageScaler src={this.state.src} drawGrid={true}  width={1024} height={768}//>`
+![Example 2](./assets/example-2.png)
 
 #### Custom Width and Height
 `<ReactImageScaler src={this.state.src} width={1024} height={768}/>`
