@@ -12,17 +12,13 @@ Simple HTML5 canvas based component used for scaling images.  Returns base64 enc
 * __onCancel__ - method - Method that runs once the cancel button has been clicked.
 * __displayResolution__ - bool - Show the scaled resolution in pixels at top right. (Defaults to true)
 * __applyMessage__ - string - Label of the apply button in bottom right. (Defaults to Apply)
-* __cancelMessage__ - string - Label of the cancel button in bottom right. (Defaults to Apply)
+* __cancelMessage__ - string - Label of the cancel button in bottom right. (Defaults to Cancel)
 * __drawGrid__ - bool - Whether or not to show gridlines over the image.
+* __scaleSizes__ - bool - Shows predefined size buttons next to Cance/Apply buttons (Defaults 0.5,1.0,2.0)
 
 ## Examples
-
 ![Example Gif](./assets/example-gif.gif)
 
 #### Grid
 `<ReactImageScaler src={this.state.src} drawGrid={true}  width={1024} height={768}//>`
 ![Example 2](./assets/example-2.png)
-
-#### Custom Width and Height
-`<ReactImageScaler src={this.state.src} width={1024} height={768}/>`
-![Example 3](./assets/example-3.png)

@@ -12,6 +12,7 @@ export default class ReactImageScaler extends React.Component {
     this.cancelCrop = this.cancelCrop.bind(this);
     this.canvasRef = createRef();
     this.scaleValueRef = createRef();
+    this.scaleValueDisplay = createRef();
     this.rangeScaleRef = createRef();
     this.sourceRef = createRef();
 
@@ -65,13 +66,14 @@ export default class ReactImageScaler extends React.Component {
       <div className='react-scaler-controls'>
         <div className='control-segment'>
           <span>SCALE   </span>
-          <input type='number' ref={this.scaleValueRef} onChange={this.scaleImage}/>
+          <input type='number' ref={this.scaleValueRef} onChange={this.scaleImage}  style={{display: 'none'}}/>
+          <span className='scale-percent' ref={this.scaleValueDisplay}>%100</span>
         </div>
         <div className='control-segment'>
           <input type='range' ref={this.rangeScaleRef} step={this.props.scaleStep ? this.props.scaleStep : '0.5'} min='1' max={this.props.maxScale ? this.props.maxScale * 10 : 30} onChange={this.scaleImage}/>
         </div>
         <div className='control-segment'>
-          {this.renderScaleSizes()}
+          {this.props.scaleSizes && this.renderScaleSizes()}
           <button onClick={this.cancelCrop}>
             {this.props.cancelLabel ? this.props.cancelLabel : 'Cancel'}
           </button>
@@ -155,6 +157,7 @@ export default class ReactImageScaler extends React.Component {
 
   redrawCanvas(scale) {
     this.scaleValueRef.current.value = scale;
+    this.scaleValueDisplay.current.innerText = ' % ' + Math.floor(scale * 100);
     this.drawSourceCanvas(scale);
     const ctx = this.canvas.getContext('2d');
     this.eraseCanvas(ctx);
