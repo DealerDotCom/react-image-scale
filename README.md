@@ -11,8 +11,8 @@ Simple HTML5 canvas based component used for scaling images.  Returns base64 enc
 * __onScaleApply__ - method - Method that is run once clicking the apply button, base64 encoded value of the canvas content returned as parameter
 * __onCancel__ - method - Method that runs once the cancel button has been clicked.
 * __displayResolution__ - bool - Show the scaled resolution in pixels at top right. (Defaults to true)
-* __applyMessage__ - string - Label of the apply button in bottom right. (Defaults to Apply)
-* __cancelMessage__ - string - Label of the cancel button in bottom right. (Defaults to Cancel)
+* __applyLabel__ - string - Label of the apply button in bottom right. (Defaults to Apply)
+* __cancelLabel__ - string - Label of the cancel button in bottom right. (Defaults to Cancel)
 * __drawGrid__ - bool - Whether or not to show gridlines over the image.
 * __scaleSizes__ - bool - Shows predefined size buttons next to Cance/Apply buttons (Defaults 0.5,1.0,2.0)
 
