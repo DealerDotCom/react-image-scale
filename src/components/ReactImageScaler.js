@@ -21,6 +21,7 @@ export default class ReactImageScaler extends React.Component {
     this.renderDebug = this.renderDebug.bind(this);
     this.renderTouchPoint = this.renderTouchPoint.bind(this);
     this.clearMovementMode = this.clearMovementMode.bind(this);
+    this.checkForReset = this.checkForReset.bind(this);
     this.canvasRef = createRef();
     this.scaleValueRef = createRef();
     this.scaleValueDisplay = createRef();
@@ -50,7 +51,6 @@ export default class ReactImageScaler extends React.Component {
       this.movement = false;
       this.image = new Image();
       this.image.src = this.state.imageSource;
-  
   
       //Initially loads the given image.
       this.image.onload = () => {
@@ -187,6 +187,7 @@ export default class ReactImageScaler extends React.Component {
 
   scaleImage(event) {
     this.scale = event.target.value / 10;
+    this.checkForReset();
     this.redrawCanvas(this.scale);
   }
 
@@ -242,8 +243,13 @@ export default class ReactImageScaler extends React.Component {
   }
 
   toggleMovementMode(event) {
-    this.movement = true;
-    if(this.movement) {
+    //Determine if the image is smaller than the frame whether
+    //that be the width or the height, if so disable moving;
+    const width = this.image.width * this.scale > this.state.canvasWidth;
+    const height = this.image.height * this.scale > this.state.canvasHeight;
+
+    if (width || height) {
+      this.movement = true;
       document.body.style.cursor = 'move';
       const bounding = event.target.getBoundingClientRect();
       this.lastDown = {x: event.clientX - bounding.left, y: event.clientY - bounding.top};
@@ -283,6 +289,18 @@ export default class ReactImageScaler extends React.Component {
 
       this.lastDown = point;
       this.redrawCanvas(this.scale);
+    }
+  }
+
+  //Checks the size of the scaled image, if the height or width are lower than that of the canvas's 
+  //then set the position of the image to 0,0
+  checkForReset() {
+    const width = this.image.width * this.scale < this.state.canvasWidth;
+    const height = this.image.height * this.scale < this.state.canvasHeight;
+
+    if(width || height) {
+      this.x = 0;
+      this.y = 0;
     }
   }
 
