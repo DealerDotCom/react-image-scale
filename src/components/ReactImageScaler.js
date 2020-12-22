@@ -193,6 +193,8 @@ export default class ReactImageScaler extends React.Component {
 
   redrawCanvas(scale) {
     this.scale = scale;
+    console.warn(scale);
+    this.rangeScaleRef.current.value = scale;
     this.scaleValueRef.current.value = scale;
     this.scaleValueDisplay.current.innerText = ' % ' + Math.floor(scale * 100);
     this.drawSourceCanvas(scale);
